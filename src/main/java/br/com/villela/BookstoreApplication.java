@@ -1,4 +1,4 @@
-package br.com.villela.init;
+package br.com.villela;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

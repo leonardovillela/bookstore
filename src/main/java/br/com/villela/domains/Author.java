@@ -1,12 +1,16 @@
 package br.com.villela.domains;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Author {
 
     @Id
@@ -23,7 +27,7 @@ public class Author {
 
     @NotEmpty
     @ManyToMany
-    private List<Book> writedBooks;
+    private List<Book> writedBooks = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -59,6 +63,10 @@ public class Author {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

@@ -1,31 +1,53 @@
-import Reflux from 'reflux'
-import BookActions from '../actions/book_actions'
+import Reflux from 'reflux';
+import BookActions from '../actions/book_actions';
+import reqwest from 'reqwest';
+import Materialize from 'materialize-css';
+
+var _state = {
+  books: []
+};
 
 export default Reflux.createStore({
   listenables: BookActions,
-  state: {
-    books: [{
-      name: 'Primeiro',
-      description: 'Meu primeiro teste',
-      numberOfPages: 200
-    }]
-  },
   getInitialState: function() {
-    return this.state;
+    return _state.books;
   },
+
+  onFetchBooks: function() {
+    let promise = reqwest({
+       url: '/books',
+       method: 'get'
+    });
+
+    promise.then(
+      (resp) => { this.updateBooks(resp); },
+      (err, msg) => { Materialize.toast('Falha ao buscar livros!', 4000); }
+    );
+  },
+
   onAddBook: function(book) {
-    var updatedBooks = this.state.books.slice();
-    updatedBooks.push(book);
-    this.updateBooks(updatedBooks);
+    let promise = reqwest({
+      url: '/books',
+      method: 'POST',
+      data: JSON.stringify(book),
+      contentType: 'application/json'
+    });
+
+    promise.then(
+      (resp) => {  Materialize.toast('Livro inserido com sucesso!', 4000); },
+      (err, msg) => { Materialize.toast('Falha ao inserir livro!', 4000); }
+    );
   },
+
   onRemoveBook: function(bookForDeleteIndex) {
-    var updatedBooks = this.state.books.filter((book, index) => {
-      return index != bookForDeleteIndex
+    var updatedBooks = _state.books.filter((book, index) => {
+      return index != bookForDeleteIndex;
     });
     this.updateBooks(updatedBooks);
   },
+
   updateBooks: function(newBooks) {
-    this.state.books = newBooks;
-    this.trigger(this.state);
+    _state.books = newBooks;
+    this.trigger(_state.books);
   }
 });

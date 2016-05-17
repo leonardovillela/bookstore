@@ -9,3 +9,5 @@ spring:
     username: root
     password: 1234
     driverClassName: com.mysql.jdbc.Driver
+    testOnBorrow: true
+    validationQuery: SELECT 1

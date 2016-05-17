@@ -1,11 +1,11 @@
 import React from 'react';
-import FormBookActions from '../actions/form_book_actions'
+import FormBookActions from '../actions/form_book_actions';
 
 export default class BookInput extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={"input-field " + this.props.className}>
         <label>{this.props.label}</label>
         <input type={this.props.type} name={this.props.name} onChange={this.handleChange} />
       </div>
@@ -22,5 +22,6 @@ export default class BookInput extends React.Component {
 BookInput.propTypes = {
   label: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string.isRequired
+  type: React.PropTypes.string.isRequired,
+  clasName: React.PropTypes.string
 };

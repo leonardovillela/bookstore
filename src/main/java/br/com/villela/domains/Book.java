@@ -1,33 +1,37 @@
 package br.com.villela.domains;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+//    @NotBlank
     private String name;
 
-    @NotBlank
+//    @NotBlank
     private String description;
 
-    @Size(min = 10)
+//    @Size(min = 10, max = 5000)
     private Integer numberOfPages;
 
     @NotEmpty
     @OneToMany
-    private List<Author> author;
+    private List<Author> authors = new ArrayList<>();
 
-    @NotBlank
+//    @NotBlank
     private String ISBN;
 
     public String getName() {
@@ -54,12 +58,12 @@ public class Book {
         this.numberOfPages = numberOfPages;
     }
 
-    public List<Author> getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(List<Author> author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public String getISBN() {
@@ -85,7 +89,7 @@ public class Book {
         if (description != null ? !description.equals(book.description) : book.description != null) return false;
         if (numberOfPages != null ? !numberOfPages.equals(book.numberOfPages) : book.numberOfPages != null)
             return false;
-        if (author != null ? !author.equals(book.author) : book.author != null) return false;
+        if (authors != null ? !authors.equals(book.authors) : book.authors != null) return false;
         return !(ISBN != null ? !ISBN.equals(book.ISBN) : book.ISBN != null);
 
     }
@@ -95,7 +99,7 @@ public class Book {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (numberOfPages != null ? numberOfPages.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (authors != null ? authors.hashCode() : 0);
         result = 31 * result + (ISBN != null ? ISBN.hashCode() : 0);
         return result;
     }
