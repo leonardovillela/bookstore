@@ -30,11 +30,11 @@ public class BookController {
 
     @RequestMapping(method = POST)
     public void save(@RequestBody Book book) {
-        book.getAuthors()
-            .(author -> {
-                authorService.findOne(author.getId());
-            });
-
-        bookService.save(book);
+//        book.getAuthors()
+//            .(author -> {
+//                authorService.findOne(author.getId());
+//            });
+//
+//        bookService.save(book);
     }
 }
