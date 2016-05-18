@@ -2,8 +2,8 @@ var path = require('path');
 var webpack = require('webpack');
 
 const PATHS = {
-  app: path.join(__dirname, 'js'),
-  build: path.join(__dirname, 'dist')
+  app: path.join(__dirname, 'src', 'main', 'resources', 'static', 'js'),
+  build: path.join(__dirname, 'src', 'main', 'resources', 'static')
 };
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
 
   entry: path.join(PATHS.app, 'app.jsx'),
   output: {
-    path: PATHS.build,
+    path: path.join(PATHS.build, 'dist'),
     filename: 'bundle.js'
   },
 
