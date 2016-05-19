@@ -10,14 +10,14 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'org.hidetake.ssh' version '2.0.0'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'spring-boot' 
+apply plugin: 'spring-boot'
 
-jar {
-	baseName = 'bookstore'
-	version = '0.0.1-SNAPSHOT'
-}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -26,21 +26,43 @@ repositories {
 }
 
 
+jar {
+	baseName = 'bookstore'
+	version = '0.0.1-SNAPSHOT'
+}
+
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.boot:spring-boot-devtools")
 
-	compile('mysql:mysql-connector-java:5.1.38')
+	compile("com.h2database:h2")
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 
+remotes {
+	webServer {
+		host = '52.40.9.147'
+		user = 'ubuntu'
+		identity = file('~/.ssh/qualidade-amazon-01.pem')
+	}
+}
+
 eclipse {
 	classpath {
 		 containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
 		 containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+	}
+}
+
+task deploy << {
+	ssh.run {
+		session(remotes.webServer) {
+			put from: 'bookstore.jar', into: '~/'
+			execute 'java -jar ~/bookstore.jar'
+		}
 	}
 }
 

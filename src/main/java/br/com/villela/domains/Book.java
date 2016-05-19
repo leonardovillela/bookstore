@@ -27,10 +27,6 @@ public class Book {
 //    @Size(min = 10, max = 5000)
     private Integer numberOfPages;
 
-    @NotEmpty
-    @OneToMany
-    private List<Author> authors = new ArrayList<>();
-
 //    @NotBlank
     private String ISBN;
 
@@ -58,14 +54,6 @@ public class Book {
         this.numberOfPages = numberOfPages;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
-
     public String getISBN() {
         return ISBN;
     }
@@ -89,7 +77,6 @@ public class Book {
         if (description != null ? !description.equals(book.description) : book.description != null) return false;
         if (numberOfPages != null ? !numberOfPages.equals(book.numberOfPages) : book.numberOfPages != null)
             return false;
-        if (authors != null ? !authors.equals(book.authors) : book.authors != null) return false;
         return !(ISBN != null ? !ISBN.equals(book.ISBN) : book.ISBN != null);
 
     }
@@ -99,7 +86,6 @@ public class Book {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (numberOfPages != null ? numberOfPages.hashCode() : 0);
-        result = 31 * result + (authors != null ? authors.hashCode() : 0);
         result = 31 * result + (ISBN != null ? ISBN.hashCode() : 0);
         return result;
     }

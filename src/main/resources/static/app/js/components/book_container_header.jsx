@@ -17,7 +17,7 @@ export default class BookContainerHeader extends React.Component {
   renderLogo() {
     return (
       <a id="logo-container" href="#" className="brand-logo">
-        BookStore do Léo
+        Bookstore
       </a>
     );
   }

@@ -1,8 +1,9 @@
 var path = require('path');
 var webpack = require('webpack');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
-  app: path.join(__dirname, 'src', 'main', 'resources', 'static', 'js'),
+  app: path.join(__dirname, 'src', 'main', 'resources', 'static', 'app', 'js'),
   build: path.join(__dirname, 'src', 'main', 'resources', 'static')
 };
 
@@ -32,6 +33,12 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: 'node_modules/materialize-css/dist/css/materialize.min.css',
+        to: './'
+      }
+    ])
   ]
 };
