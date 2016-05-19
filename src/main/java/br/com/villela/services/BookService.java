@@ -22,4 +22,8 @@ public class BookService {
     public void save(Book book) {
         bookRepository.save(book);
     }
+
+    public Book get(Long id) {
+      return bookRepository.findOne(id);
+    }
 }
