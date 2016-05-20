@@ -49,7 +49,7 @@ public class BookstoreApplicationTests {
 
 	@Test
 	public void testControlleRespondBooksInJsonFormat() throws Exception {
-//		this.mockMvc.perform(get("/books"))
-//			.andExpect(jsonPath("$[0].description", is(bookService.get(1L).getDescription())));
+		this.mockMvc.perform(get("/books"))
+			.andExpect(jsonPath("$[0].description", is(bookService.get(1L).getDescription())));
 	}
 }
