@@ -68,7 +68,7 @@ task deploy << {
 			String fileName = "${baseNameJar}-${versionJar}.jar";
 
 			put from: "build/libs/${fileName}", into: '/home/ubuntu'
-			execute 'java -jar /home/ubuntu/${fileName}'
+			execute "java -jar /home/ubuntu/${fileName}"
 		}
 	}
 }
