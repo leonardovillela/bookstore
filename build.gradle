@@ -18,6 +18,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 
+ext {
+	baseNameJar = 'bookstore'
+	versionJar = '0.0.1-SNAPSHOT'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -27,8 +32,8 @@ repositories {
 
 
 jar {
-	baseName = 'bookstore'
-	version = '0.0.1-SNAPSHOT'
+	baseName = "${baseNameJar}"
+	version = "${versionJar}"
 }
 
 dependencies {
@@ -46,7 +51,7 @@ remotes {
 	webServer {
 		host = '52.40.9.147'
 		user = 'ubuntu'
-		identity = file('~/.ssh/qualidade-amazon-01.pem')
+		identity = file(new File('/home/leonardo/.ssh/qualidade-amazon-01.pem'))
 	}
 }
 
@@ -60,8 +65,10 @@ eclipse {
 task deploy << {
 	ssh.run {
 		session(remotes.webServer) {
-			put from: 'bookstore.jar', into: '~/'
-			execute 'java -jar ~/bookstore.jar'
+			String fileName = "${baseNameJar}-${versionJar}.jar";
+
+			put from: "build/libs/${fileName}", into: '/home/ubuntu'
+			execute 'java -jar /home/ubuntu/${fileName}'
 		}
 	}
 }

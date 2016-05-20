@@ -33,7 +33,6 @@ export default class BookList extends React.Component {
         <th>Descrição</th>
         <th>Número de Paginas</th>
         <th>ISBN</th>
-        <th>Autores</th>
       </tr>
     );
   }
@@ -46,20 +45,10 @@ export default class BookList extends React.Component {
           <td>{book.description}</td>
           <td>{book.numberOfPages}</td>
           <td>{book.isbn}</td>
-          <td>{this.renderAuthors(book.authors)}</td>
         </tr>
       );
     });
 
     return lines;
-  }
-
-  renderAuthors(authors = []) {
-    let authorsName = authors.reduce((accumulator, author, index, array) => {
-      let formatedName = index !== array.length ? author.name : author.name + ", ";
-      return accumulator += formatedName;
-    }, "");
-
-    return authorsName;
   }
 }
