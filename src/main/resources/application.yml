@@ -11,3 +11,5 @@ spring:
 #    driverClassName: com.mysql.jdbc.Driver
 #    testOnBorrow: true
 #    validationQuery: SELECT 1
+server:
+  port: 8085
