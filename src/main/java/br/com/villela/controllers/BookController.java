@@ -33,6 +33,5 @@ public class BookController {
   @RequestMapping(method = POST)
   public void save(@RequestBody Book book, HttpServletResponse resp) throws IOException {
     bookService.save(book);
-    resp.sendRedirect("/index.html");
   }
 }

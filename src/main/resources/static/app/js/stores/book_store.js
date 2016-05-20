@@ -26,17 +26,12 @@ export default Reflux.createStore({
   },
 
   onAddBook: function(book) {
-    let promise = reqwest({
+    reqwest({
       url: '/books',
       method: 'POST',
       data: JSON.stringify(book),
       contentType: 'application/json'
     });
-
-    promise.then(
-      (resp) => {  Materialize.toast('Livro inserido com sucesso!', 4000); },
-      (err, msg) => { Materialize.toast('Falha ao inserir livro!', 4000); }
-    );
   },
 
   onRemoveBook: function(bookForDeleteIndex) {
