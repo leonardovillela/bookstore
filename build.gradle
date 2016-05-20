@@ -48,7 +48,7 @@ dependencies {
 
 remotes {
 	webServer {
-		host = '52.40.9.147'
+		host = '52.40.90.242'
 		user = 'ubuntu'
 		identity = file(new File('/home/leonardo/.ssh/qualidade-amazon-01.pem'))
 	}
